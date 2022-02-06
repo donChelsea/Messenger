@@ -1,4 +1,4 @@
-package com.example.messenger
+package com.example.messenger.ui.main
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth

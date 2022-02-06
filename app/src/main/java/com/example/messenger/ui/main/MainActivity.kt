@@ -1,17 +1,16 @@
-package com.example.messenger
+package com.example.messenger.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.messenger.R
 import com.example.messenger.ui.login.LoginActivity
-import com.example.messenger.ui.messages.NewMessageFragment
+import com.example.messenger.ui.newmessage.NewMessageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

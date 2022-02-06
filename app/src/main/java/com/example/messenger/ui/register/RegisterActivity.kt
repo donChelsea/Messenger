@@ -6,10 +6,9 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore.Images.Media.getBitmap
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.messenger.MainActivity
+import com.example.messenger.ui.main.MainActivity
 import com.example.messenger.databinding.ActivityRegisterBinding
 import com.example.messenger.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint

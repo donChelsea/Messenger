@@ -11,7 +11,16 @@
         tools:layout="@layout/fragment_messages" />
     <fragment
         android:id="@+id/newMessageFragment"
-        android:name="com.example.messenger.ui.messages.NewMessageFragment"
+        android:name="com.example.messenger.ui.newmessage.NewMessageFragment"
         android:label="Select User"
-        tools:layout="@layout/fragment_new_message" />
+        tools:layout="@layout/fragment_new_message" >
+        <action
+            android:id="@+id/action_newMessageFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.messenger.ui.chatlog.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>
