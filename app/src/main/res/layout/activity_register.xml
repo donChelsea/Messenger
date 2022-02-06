@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/password_et"/>
 
     <TextView
-        android:id="@+id/need_account_tv"
+        android:id="@+id/already_have_account_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
