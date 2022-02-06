@@ -1,12 +1,12 @@
-package com.example.messenger.ui
+package com.example.messenger.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.messenger.databinding.ActivityLoginBinding
+import com.example.messenger.ui.register.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

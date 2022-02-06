@@ -4,15 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RegisterActivity"
+    tools:context=".ui.register.RegisterActivity"
     android:background="@color/darkBlueAppBackground">
+
+    <Button
+        android:id="@+id/pic_select_btn"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/select_photo"
+        android:background="@drawable/round_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/pic_select_iv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
         android:id="@+id/username_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/username"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:paddingTop="10dp"
@@ -20,7 +41,7 @@
         android:paddingStart="20dp"
         android:inputType="textEmailAddress"
         android:background="@drawable/round_input"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/pic_select_btn" />
 
     <EditText
         android:id="@+id/email_et"

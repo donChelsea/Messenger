@@ -1,12 +1,17 @@
-package com.example.messenger.ui
+package com.example.messenger.ui.register
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.example.messenger.MainActivity
 import com.example.messenger.databinding.ActivityRegisterBinding
+import com.example.messenger.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,8 +26,18 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.apply {
 
+            picSelectBtn.setOnClickListener {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.type = "image/*"
+                startActivityForResult(intent, 0)
+            }
+
             registerBtn.setOnClickListener {
                 registerUser()
+                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                // to return to home screen of device instead of auth activities
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
 
             alreadyHaveAccountTv.setOnClickListener {
@@ -32,10 +47,25 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            // Look at selected photo
+            viewModel.selectedPhotoUri = data.data
+            val bitmap = getBitmap(contentResolver, viewModel.selectedPhotoUri)
+            val bitmapDrawable = BitmapDrawable(bitmap)
+            binding.apply {
+                picSelectIv.setBackgroundDrawable(bitmapDrawable)
+                picSelectBtn.alpha = 0f
+            }
+        }
+    }
+
     private fun registerUser() {
-        val username = binding.usernameEt.text.toString()
         val email = binding.emailEt.text.toString()
         val password = binding.passwordEt.text.toString()
+        viewModel.username = binding.usernameEt.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(
