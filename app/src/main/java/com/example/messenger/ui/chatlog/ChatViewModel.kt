@@ -6,12 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.messenger.models.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
+import com.google.firebase.database.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -24,11 +19,12 @@ class ChatViewModel @Inject constructor(
     private val _message = MutableLiveData<ChatMessage?>()
     val message: LiveData<ChatMessage?> = _message
 
-    var user: User? = null
+    var toUser: User? = null
+    var currentUser: User? = null
 
     fun sendMessage(text: String) {
         val fromId = auth.uid
-        val toId = user?.uid
+        val toId = toUser?.uid
         val ref = database.getReference("messages").push()
 
         if (ref.key == null || fromId == null || toId == null) return
@@ -71,4 +67,19 @@ class ChatViewModel @Inject constructor(
     }
 
     fun getUid() = auth.uid
+
+    fun fetchCurrentUser() {
+        val uid = auth.uid
+        val ref = database.getReference("users/$uid")
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                currentUser = snapshot.getValue(User::class.java)
+                Log.d("ChatViewModel", currentUser?.profileImageUrl.toString())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 }

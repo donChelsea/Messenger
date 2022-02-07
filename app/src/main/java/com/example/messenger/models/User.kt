@@ -29,19 +29,25 @@ class UserItem(val user: User) : Item<GroupieViewHolder>() {
     }
 }
 
-class SendMessageItem(val text: String) : Item<GroupieViewHolder>() {
+class SendMessageItem(val text: String, val user: User?) : Item<GroupieViewHolder>() {
     override fun getLayout() = R.layout.chat_to_row
 
     override fun bind(p0: GroupieViewHolder, p1: Int) {
         p0.itemView.findViewById<TextView>(R.id.send_user_tv).text = text
+
+        val uri = user?.profileImageUrl
+        Picasso.get().load(uri).into(p0.itemView.findViewById(R.id.send_user_iv) as ImageView)
     }
 }
 
-class ReceiveMessageItem(val text: String) : Item<GroupieViewHolder>() {
+class ReceiveMessageItem(val text: String, val currentUser: User?) : Item<GroupieViewHolder>() {
     override fun getLayout() = R.layout.chat_from_row
 
     override fun bind(p0: GroupieViewHolder, p1: Int) {
         p0.itemView.findViewById<TextView>(R.id.receive_user_tv).text = text
+
+        val uri = currentUser?.profileImageUrl
+        Picasso.get().load(uri).into(p0.itemView.findViewById(R.id.receive_user_iv) as ImageView)
     }
 }
 

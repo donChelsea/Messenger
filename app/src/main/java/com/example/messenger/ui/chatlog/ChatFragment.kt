@@ -22,7 +22,7 @@ class ChatFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) viewModel.user = requireArguments().getParcelable(ARG_USER)
+        if (arguments != null) viewModel.toUser = requireArguments().getParcelable(ARG_USER)
     }
 
     override fun onCreateView(
@@ -36,17 +36,16 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = GroupAdapter<GroupieViewHolder>()
+        viewModel.fetchCurrentUser()
 
-        adapter.add(ReceiveMessageItem("hello"))
-        adapter.add(SendMessageItem("goodbye"))
+        val adapter = GroupAdapter<GroupieViewHolder>()
 
         viewModel.message.observe(viewLifecycleOwner) { chatMessage ->
             chatMessage?.let {
                 if (chatMessage.fromId == viewModel.getUid()) {
-                    adapter.add(ReceiveMessageItem(chatMessage.text))
+                    adapter.add(SendMessageItem(chatMessage.text, viewModel.toUser))
                 } else {
-                    adapter.add(SendMessageItem(chatMessage.text))
+                    adapter.add(ReceiveMessageItem(chatMessage.text, viewModel.currentUser))
                 }
             }
         }

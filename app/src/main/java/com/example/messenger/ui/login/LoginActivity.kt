@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.messenger.databinding.ActivityLoginBinding
+import com.example.messenger.ui.main.MainActivity
 import com.example.messenger.ui.register.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
 
             loginBtn.setOnClickListener {
                 loginUser()
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
             }
 
             needAccountTv.setOnClickListener {
