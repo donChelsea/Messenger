@@ -25,7 +25,8 @@ class ChatViewModel @Inject constructor(
     fun sendMessage(text: String) {
         val fromId = auth.uid
         val toId = toUser?.uid
-        val ref = database.getReference("messages").push()
+        val ref = database.getReference("user-messages/$fromId/$toId").push()
+        val toRef = database.getReference("user-messages/$toId/$fromId").push()
 
         if (ref.key == null || fromId == null || toId == null) return
 
@@ -34,10 +35,14 @@ class ChatViewModel @Inject constructor(
             .addOnSuccessListener {
                 Log.d("ChatViewModel", "SUCCESS: ${ref.key}")
             }
+        toRef.setValue(chatMessage)
     }
 
     fun listenForMessages() {
-        val ref = database.getReference("messages")
+        val fromId = auth.uid
+        val toId = toUser?.uid
+        val ref = database.getReference("user-messages/$fromId/$toId")
+
         ref.addChildEventListener(object: ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)

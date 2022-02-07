@@ -60,6 +60,8 @@ class ChatFragment : Fragment() {
 
             sendBtn.setOnClickListener {
                 viewModel.sendMessage(text)
+                sendMessageEt.text.clear()
+                recyclerview.scrollToPosition(adapter.itemCount -1)
             }
         }
 
