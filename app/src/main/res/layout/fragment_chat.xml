@@ -27,6 +27,7 @@
         android:hint="@string/send_message"
         android:paddingTop="18dp"
         android:paddingBottom="18dp"
+        android:paddingStart="18dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"

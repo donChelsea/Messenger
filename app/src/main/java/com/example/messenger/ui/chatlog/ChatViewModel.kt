@@ -36,6 +36,12 @@ class ChatViewModel @Inject constructor(
                 Log.d("ChatViewModel", "SUCCESS: ${ref.key}")
             }
         toRef.setValue(chatMessage)
+
+        val latestMessageRef = database.getReference("latest-messages/$fromId/$toId")
+        latestMessageRef.setValue(chatMessage)
+
+        val latestMessageToRef = database.getReference("latest-messages/$toId/$fromId")
+        latestMessageToRef.setValue(chatMessage)
     }
 
     fun listenForMessages() {

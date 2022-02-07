@@ -51,6 +51,14 @@ class ReceiveMessageItem(val text: String, val currentUser: User?) : Item<Groupi
     }
 }
 
+class MessagesItem(val chatMessage: ChatMessage?) : Item<GroupieViewHolder>() {
+    override fun getLayout() = R.layout.item_view_messages
+
+    override fun bind(p0: GroupieViewHolder, p1: Int) {
+        p0.itemView.findViewById<TextView>(R.id.messages_preview_tv).text = chatMessage?.text
+    }
+}
+
 class ChatMessage(
     val id: String,
     val text: String,
